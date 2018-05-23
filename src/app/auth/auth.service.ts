@@ -44,7 +44,15 @@ export class AuthService {
     this.loggedIn = value;
   }
 
-  login() {
+  login(redirect?: string) {
+    /*
+    In the login() method, we'll now check for a redirect parameter. If there isn't one, this means the user initialized the
+     login() method from the header link and not from the route guard. In this case, we'll set _redirect to the current URL 
+     so the user returns here after authenticating. We'll then set the _redirect in local storage.
+    */
+     // Set redirect after login
+     const _redirect = redirect ? redirect : this.router.url;
+     localStorage.setItem('authRedirect', _redirect);
     // Auth0 authorize request
     this._auth0.authorize();
   }
@@ -56,6 +64,8 @@ export class AuthService {
         window.location.hash = '';
         this._getProfile(authResult);
       } else if (err) {
+        this._clearRedirect();
+        this.router.navigate(['/']);
         console.error(`Error authenticating: ${err.error}`);
       }
       this.router.navigate(['/']);
@@ -67,10 +77,32 @@ export class AuthService {
     this._auth0.client.userInfo(authResult.accessToken, (err, profile) => {
       if (profile) {
         this._setSession(authResult, profile);
+        this.router.navigate([localStorage.getItem('authRedirect') || '/']);
+        this._redirect();
+        this._clearRedirect();
       } else if (err) {
         console.error(`Error authenticating: ${err.error}`);
       }
     });
+  }
+
+  private _redirect() {
+    // Redirect with or without 'tab' query parameter
+    // Note: does not support additional params besides 'tab'
+    const fullRedirect = decodeURI(localStorage.getItem('authRedirect'));
+    const redirectArr = fullRedirect.split('?tab=');
+    const navArr = [redirectArr[0] || '/'];
+    const tabObj = redirectArr[1] ? { queryParams: { tab: redirectArr[1] }} : null;
+
+    if (!tabObj) {
+      this.router.navigate(navArr);
+    } else {
+      this.router.navigate(navArr, tabObj);
+    }
+  }
+
+  private _clearRedirect(){
+    localStorage.removeItem('authRedirect');
   }
 
   private _setSession(authResult, profile) {
@@ -99,6 +131,7 @@ export class AuthService {
     localStorage.removeItem('profile');
     localStorage.removeItem('expires_at');
     localStorage.removeItem('authRedirect');
+    this._clearRedirect();
     // Reset local properties, update loggedIn$ stream
     this.userProfile = undefined;
     this.isAdmin = undefined;
