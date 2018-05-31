@@ -19,6 +19,13 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { EventComponent } from './pages/event/event.component';
 import { EventDetailComponent } from './pages/event/event-detail/event-detail.component';
 import { RsvpComponent } from './pages/event/rsvp/rsvp.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SubmittingComponent } from './core/forms/submitting.component';
+import { RsvpFormComponent } from './pages/event/rsvp/rsvp-form/rsvp-form.component';
+import { CreateEventComponent } from './pages/admin/create-event/create-event.component';
+import { UpdateEventComponent } from './pages/admin/update-event/update-event.component';
+import { EventFormComponent } from './pages/admin/event-form/event-form.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,13 +37,19 @@ import { RsvpComponent } from './pages/event/rsvp/rsvp.component';
     AdminComponent,
     EventComponent,
     EventDetailComponent,
-    RsvpComponent
+    RsvpComponent,
+    SubmittingComponent,
+    RsvpFormComponent,
+    CreateEventComponent,
+    UpdateEventComponent,
+    EventFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     Title,

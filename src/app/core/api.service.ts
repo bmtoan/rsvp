@@ -70,4 +70,58 @@ export class ApiService {
     return Observable.throw(errorMsg);
   }
 
+  // POST new RSVP (login required)
+  postRsvp$(rsvp: RsvpModel): Observable<RsvpModel> {
+    return this.http
+      .post(`${ENV.BASE_API}rsvp/new`, rsvp, {
+        headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
+      .pipe(
+        catchError((error) => this._handleError(error))
+      );
+  }
+
+  // PUT existing RSVP (login required)
+  editRsvp$(id: string, rsvp: RsvpModel): Observable<RsvpModel> {
+    return this.http
+      .put(`${ENV.BASE_API}rsvp/${id}`, rsvp, {
+        headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
+      .pipe(
+        catchError((error) => this._handleError(error))
+      );
+ 
 }
+
+  // POST new event (admin only)
+  postEvent$(event: EventModel): Observable<EventModel> {
+    return this.http
+      .post(`${ENV.BASE_API}event/new`, event, {
+        headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
+      .pipe(
+        catchError((error) => this._handleError(error))
+      );
+  }
+
+  // PUT existing event (admin only)
+  editEvent$(id: string, event: EventModel): Observable<EventModel> {
+    return this.http
+      .put(`${ENV.BASE_API}event/${id}`, event, {
+        headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
+      .pipe(
+        catchError((error) => this._handleError(error))
+      );
+  }
+
+  // DELETE existing event and all associated RSVPs (admin only)
+  deleteEvent$(id: string): Observable<any> {
+    return this.http
+      .delete(`${ENV.BASE_API}event/${id}`, {
+        headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
+      .pipe(
+        catchError((error) => this._handleError(error))
+      );
+  }
