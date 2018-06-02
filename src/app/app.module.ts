@@ -14,7 +14,7 @@ import { ApiService } from './core/api.service';
 import { DatePipe } from '@angular/common';
 import { UtilsService } from './core/utils.service';
 import { FilterSortService } from './core/filter-sort.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AdminComponent } from './pages/admin/admin.component';
 import { EventComponent } from './pages/event/event.component';
 import { EventDetailComponent } from './pages/event/event-detail/event-detail.component';
@@ -25,6 +25,8 @@ import { RsvpFormComponent } from './pages/event/rsvp/rsvp-form/rsvp-form.compon
 import { CreateEventComponent } from './pages/admin/create-event/create-event.component';
 import { UpdateEventComponent } from './pages/admin/update-event/update-event.component';
 import { EventFormComponent } from './pages/admin/event-form/event-form.component';
+
+
 
 @NgModule({
   declarations: [
@@ -49,7 +51,8 @@ import { EventFormComponent } from './pages/admin/event-form/event-form.componen
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule
   ],
   providers: [
     Title,
