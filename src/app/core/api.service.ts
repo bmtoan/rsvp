@@ -125,4 +125,15 @@ export class ApiService {
         catchError((error) => this._handleError(error))
       );
   }
+
+  // GET all events a specific user has RSVPed to (login required)
+  getUserEvents$(userId: string): Observable<EventModel[]> {
+    return this.http
+      .get(`${ENV.BASE_API}events/${userId}`, {
+        headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
+      .pipe(
+        catchError((error) => this._handleError(error))
+      );
+  }
 }

@@ -25,6 +25,8 @@ import { RsvpFormComponent } from './pages/event/rsvp/rsvp-form/rsvp-form.compon
 import { CreateEventComponent } from './pages/admin/create-event/create-event.component';
 import { UpdateEventComponent } from './pages/admin/update-event/update-event.component';
 import { EventFormComponent } from './pages/admin/event-form/event-form.component';
+import { DeleteEventComponent } from './pages/admin/update-event/delete-event/delete-event.component';
+import { MyRsvpsComponent } from './pages/my-rsvps/my-rsvps.component';
 
 
 
@@ -44,7 +46,9 @@ import { EventFormComponent } from './pages/admin/event-form/event-form.componen
     RsvpFormComponent,
     CreateEventComponent,
     UpdateEventComponent,
-    EventFormComponent
+    EventFormComponent,
+    DeleteEventComponent,
+    MyRsvpsComponent
   ],
   imports: [
     BrowserModule,

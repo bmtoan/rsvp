@@ -55,6 +55,15 @@
           <p class="mb-1">
             <strong>Date:</strong> {{utils.eventDates(event.startDatetime, event.endDatetime)}}
           </p>
+          <p class="mb-1">
+            <a
+              class="btn btn-info btn-sm"
+              [routerLink]="['/admin/event/update', event._id]">Edit</a>
+            <a
+              class="btn btn-danger btn-sm"
+              [routerLink]="['/admin/event/update', event._id]"
+              [queryParams]="{tab: 'delete'}">Delete</a>
+          </p>
         </div>
       </section>
     </ng-template>
@@ -62,6 +71,11 @@
     <!-- No events available -->
     <p *ngIf="!eventList.length" class="alert alert-info">
       No events have been created yet.
+    </p>
+    <p>
+      <a
+        class="btn btn-success btn-block"
+        routerLink="/admin/event/new">+ Create New Event</a>
     </p>
   </ng-template>
 

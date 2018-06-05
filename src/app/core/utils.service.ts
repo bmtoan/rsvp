@@ -69,5 +69,8 @@ export class UtilsService {
     // Change a boolean to 'Yes' or 'No' string
     return bool ? 'Yes' : 'No';
   }
-
+  capitalize(str: string): string {
+    // Capitalize first letter of string
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
 }
