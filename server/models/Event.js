@@ -1,4 +1,3 @@
-// server/models/Event.js
 /*
  |--------------------------------------
  | Event Model

@@ -1,4 +1,3 @@
-// src/app/core/utils.service.ts
 import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
@@ -51,9 +50,10 @@ export class UtilsService {
     // Check if current tab is tab name
     return currentTab === tab;
   }
+
   displayCount(guests: number): string {
     // Example usage:
-    //  attending this event
+    // {{displayCount(guests)}} attending this event
     const persons = guests === 1 ? ' person' : ' people';
     return guests + persons;
   }
@@ -69,8 +69,10 @@ export class UtilsService {
     // Change a boolean to 'Yes' or 'No' string
     return bool ? 'Yes' : 'No';
   }
+
   capitalize(str: string): string {
     // Capitalize first letter of string
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
+
 }

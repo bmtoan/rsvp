@@ -1,8 +1,6 @@
-// src/app/core/forms/formUtils.factory.ts
 // 0-9
 // https://regex101.com/r/dU0eY6/1
 const GUESTS_REGEX = new RegExp(/^[0-9]$/);
-
 // mm/dd/yyyy, m/d/yyyy
 // https://regex101.com/r/7iSsmm/2
 const DATE_REGEX = new RegExp(/^(\d{2}|\d)\/(\d{2}|\d)\/\d{4}$/);
@@ -35,5 +33,4 @@ function stringsToDate(dateStr: string, timeStr: string) {
   return date;
 }
 
-
-export { GUESTS_REGEX, DATE_REGEX, TIME_REGEX, stringsToDate  };
+export { GUESTS_REGEX, DATE_REGEX, TIME_REGEX, stringsToDate };

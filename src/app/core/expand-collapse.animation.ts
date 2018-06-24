@@ -1,6 +1,15 @@
 import { trigger, transition, style, animate, state } from '@angular/animations';
-
-// OPTION 1:
+/*
+  Component declaration:
+    @Component({
+      selector: 'app-anim',
+      animations: [expandCollapse],
+      templateUrl: './anim.component.html',
+      styleUrls: ['./anim.component.scss']
+    })
+  Template:
+    <div *ngIf="show" [@expandCollapse]>
+*/
 export const expandCollapse = trigger('expandCollapse', [
   state('*', style({
     'overflow-y': 'hidden',
@@ -13,9 +22,3 @@ export const expandCollapse = trigger('expandCollapse', [
   transition('* => void', animate('250ms ease-out')),
   transition('void => *', animate('250ms ease-in'))
 ]);
-/**
- * State *: element is present
-State void: element is removed
-Transition void => *: element is being added (alias: :enter)
-Transition * => void: element is being removed (alias: :leave)
- */

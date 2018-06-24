@@ -14,6 +14,7 @@ import { EventModel } from './../../core/models/event.model';
 })
 export class MyRsvpsComponent implements OnInit, OnDestroy {
   pageTitle = 'My RSVPs';
+  loggedInSub: Subscription;
   eventListSub: Subscription;
   eventList: EventModel[];
   loading: boolean;
@@ -25,16 +26,22 @@ export class MyRsvpsComponent implements OnInit, OnDestroy {
     public auth: AuthService,
     private api: ApiService,
     public fs: FilterSortService,
-    public utils: UtilsService) { }
+    public utils: UtilsService
+  ) { }
 
   ngOnInit() {
+    this.loggedInSub = this.auth.loggedIn$.subscribe(
+      loggedIn => {
+        this.loading = true;
+        if (loggedIn) {
+          this._getEventList();
+        }
+      }
+    );
     this.title.setTitle(this.pageTitle);
-    this.userIdp = this._getIdp;
-    this._getEventList();
   }
 
   private _getEventList() {
-    this.loading = true;
     // Get events user has RSVPed to
     this.eventListSub = this.api
       .getUserEvents$(this.auth.userProfile.sub)
@@ -51,21 +58,8 @@ export class MyRsvpsComponent implements OnInit, OnDestroy {
       );
   }
 
-  private get _getIdp(): string {
-    const sub = this.auth.userProfile.sub.split('|')[0];
-    let idp = sub;
-
-    if (sub === 'auth0') {
-      idp = 'Username/Password';
-    } else if (idp === 'google-oauth2') {
-      idp = 'Google';
-    } else {
-      idp = this.utils.capitalize(sub);
-    }
-    return idp;
-  }
-
   ngOnDestroy() {
+    this.loggedInSub.unsubscribe();
     this.eventListSub.unsubscribe();
   }
 

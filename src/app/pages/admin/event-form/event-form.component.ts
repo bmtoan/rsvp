@@ -6,10 +6,9 @@ import { ApiService } from './../../../core/api.service';
 import { EventModel, FormEventModel } from './../../../core/models/event.model';
 import { DatePipe } from '@angular/common';
 import { dateValidator } from './../../../core/forms/date.validator';
+import { dateRangeValidator } from './../../../core/forms/date-range.validator';
 import { DATE_REGEX, TIME_REGEX, stringsToDate } from './../../../core/forms/formUtils.factory';
 import { EventFormService } from './event-form.service';
-import { dateRangeValidator } from './../../../core/forms/date-range.validator';
-
 
 @Component({
   selector: 'app-event-form',
@@ -40,7 +39,8 @@ export class EventFormComponent implements OnInit, OnDestroy {
     private api: ApiService,
     private datePipe: DatePipe,
     public ef: EventFormService,
-    private router: Router) { }
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.formErrors = this.ef.formErrors;
@@ -245,6 +245,5 @@ export class EventFormComponent implements OnInit, OnDestroy {
     }
     this.formChangeSub.unsubscribe();
   }
-  
 
 }

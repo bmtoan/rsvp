@@ -1,4 +1,3 @@
-// server/models/Rsvp.js
 /*
  |--------------------------------------
  | Rsvp Model

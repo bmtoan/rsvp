@@ -1,4 +1,3 @@
-// src/app/pages/event/event.component.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AuthService } from './../../auth/auth.service';
@@ -16,6 +15,7 @@ import { EventModel } from './../../core/models/event.model';
 export class EventComponent implements OnInit, OnDestroy {
   pageTitle: string;
   id: string;
+  loggedInSub: Subscription;
   routeSub: Subscription;
   tabSub: Subscription;
   eventSub: Subscription;
@@ -30,9 +30,21 @@ export class EventComponent implements OnInit, OnDestroy {
     public auth: AuthService,
     private api: ApiService,
     public utils: UtilsService,
-    private title: Title) { }
+    private title: Title
+  ) { }
 
   ngOnInit() {
+    this.loggedInSub = this.auth.loggedIn$.subscribe(
+      loggedIn => {
+        this.loading = true;
+        if (loggedIn) {
+          this._routeSubs();
+        }
+      }
+    );
+  }
+
+  private _routeSubs() {
     // Set event ID from route params and subscribe
     this.routeSub = this.route.params
       .subscribe(params => {
@@ -48,7 +60,6 @@ export class EventComponent implements OnInit, OnDestroy {
   }
 
   private _getEvent() {
-    this.loading = true;
     // GET event by ID
     this.eventSub = this.api
       .getEventById$(this.id)

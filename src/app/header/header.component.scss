@@ -1,4 +1,3 @@
-/* src/app/header/header.component.scss */
 /*--------------------
        HEADER
 --------------------*/
@@ -80,7 +79,7 @@
   }
   :host-context(.nav-open) & {
     span {
-      background: transparent;
+      background-color: transparent;
 
       &:before,
       &:after {
@@ -127,6 +126,11 @@
 
     a:hover {
       text-decoration: underline;
+    }
+    .divider {
+      display: inline-block;
+      opacity: .5;
+      padding: 0 4px;
     }
   }
 }

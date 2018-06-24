@@ -1,4 +1,3 @@
-// src/app/pages/home/home.component.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ApiService } from './../../core/api.service';
@@ -25,7 +24,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private title: Title,
     public utils: UtilsService,
     private api: ApiService,
-    public fs: FilterSortService) { }
+    public fs: FilterSortService
+  ) { }
 
   ngOnInit() {
     this.title.setTitle(this.pageTitle);
@@ -58,6 +58,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   resetQuery() {
     this.query = '';
     this.filteredEvents = this.eventList;
+  }
+
+  get noSearchResults(): boolean {
+    return !!(!this.filteredEvents.length && this.query);
   }
 
   ngOnDestroy() {

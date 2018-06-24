@@ -7,7 +7,7 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./create-event.component.scss']
 })
 export class CreateEventComponent implements OnInit {
-  pageTitle = 'Create Event sss';
+  pageTitle = 'Create Event';
 
   constructor(private title: Title) { }
 

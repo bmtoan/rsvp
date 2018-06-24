@@ -18,17 +18,19 @@ export class UpdateEventComponent implements OnInit, OnDestroy {
   eventSub: Subscription;
   event: EventModel;
   loading: boolean;
+  submitting: boolean;
   error: boolean;
-  private _id: string;
   tabSub: Subscription;
   tab: string;
+  private _id: string;
 
   constructor(
     private route: ActivatedRoute,
     public auth: AuthService,
     private api: ApiService,
     public utils: UtilsService,
-    private title: Title) { }
+    private title: Title
+  ) { }
 
   ngOnInit() {
     this.title.setTitle(this.pageTitle);
@@ -40,9 +42,10 @@ export class UpdateEventComponent implements OnInit, OnDestroy {
         this._getEvent();
       });
 
-      this.tabSub = this.route.queryParams
-      .subscribe(queryParam => {
-        this.tab = queryParam['tab'] || 'edit';
+    // Subscribe to query params to watch for tab changes
+    this.tabSub = this.route.queryParams
+      .subscribe(queryParams => {
+        this.tab = queryParams['tab'] || 'edit';
       });
   }
 
@@ -66,8 +69,8 @@ export class UpdateEventComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.routeSub.unsubscribe();
-    this.eventSub.unsubscribe();
     this.tabSub.unsubscribe();
+    this.eventSub.unsubscribe();
   }
 
 }

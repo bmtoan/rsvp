@@ -1,4 +1,3 @@
-// src/app/core/filter-sort.service.ts
 import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
@@ -16,6 +15,23 @@ export class FilterSortService {
     const item0 = array[0];
     const check = !!(array.length && item0 !== null && Object.prototype.toString.call(item0) === '[object Object]');
     return check;
+  }
+
+  filter(array: any[], property: string, value: any) {
+    // Return only items with specific key/value pair
+    if (!property || value === undefined || !this._objArrayCheck(array)) {
+      return array;
+    }
+    const filteredArray = array.filter(item => {
+      for (const key in item) {
+        if (item.hasOwnProperty(key)) {
+          if (key === property && item[key] === value) {
+            return true;
+          }
+        }
+      }
+    });
+    return filteredArray;
   }
 
   search(array: any[], query: string, excludeProps?: string|string[], dateFormat?: string) {
@@ -43,7 +59,7 @@ export class FilterSortService {
             } else if (
               // Value is a Date object or UTC string
               (thisVal instanceof Date || thisVal.toString().match(isoDateRegex)) &&
-              // https://angular.io/api/common/DatePipe
+              // https://angular.io/docs/ts/latest/api/common/index/DatePipe-pipe.html
               // Matching date format string passed in as param (or default to 'medium')
               this.datePipe.transform(thisVal, dateF).toLowerCase().indexOf(lQuery) !== -1
             ) {
@@ -73,22 +89,6 @@ export class FilterSortService {
       return !reverse ? dateA - dateB : dateB - dateA;
     });
     return sortedArray;
-  }
-  filter(array: any[], property: string, value: any) {
-    // Return only items with specific key/value pair
-    if (!property || value === undefined || !this._objArrayCheck(array)) {
-      return array;
-    }
-    const filteredArray = array.filter(item => {
-      for (const key in item) {
-        if (item.hasOwnProperty(key)) {
-          if (key === property && item[key] === value) {
-            return true;
-          }
-        }
-      }
-    });
-    return filteredArray;
   }
 
 }
